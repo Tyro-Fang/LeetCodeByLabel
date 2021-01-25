@@ -1,3 +1,4 @@
+#栈
 class Solution:
     def decodeString(self, s: str) -> str:
         if not s:
@@ -54,4 +55,27 @@ class Solution:
         repeat = elementsStack.pop()
         res = repeat * res
         return res
-        
+
+
+#DFS
+class Solution:
+    def decodeString(self, s: str) -> str:
+        def dfs(s, index):
+            res = ""
+            repeat = 0
+            while index < len(s):
+                if s[index] == '[':
+                    index,temp = dfs(s, index + 1)
+                    res += repeat * temp
+                    repeat = 0
+                elif s[index] == ']':
+                    return index, res
+                elif '0' <= s[index] <= '9':
+                    repeat = repeat * 10 + int(s[index])
+                else:
+                    res += s[index]
+                index += 1
+            return  res
+        if not s:
+            return ""
+        return dfs(s, 0)   
