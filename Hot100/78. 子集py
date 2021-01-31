@@ -1,0 +1,16 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return nums
+        res = []
+        res.append([])
+        def helper(nums, startIndex, ans):
+            if startIndex >= len(nums):
+                return
+            for i in range(startIndex, len(nums)):
+                ans.append(nums[i])
+                res.append(ans.copy())
+                helper(nums, i + 1, ans)
+                ans.pop(-1)
+        helper(nums, 0, [])
+        return res
