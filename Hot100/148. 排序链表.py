@@ -33,7 +33,7 @@ class Solution:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution:
+class Solution1:
     def sortList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
@@ -62,3 +62,49 @@ class Solution:
                 rightResult = rightResult.next
             ptr = ptr.next
         return dummy.next
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution2:
+    def sortList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        invite = 1
+        while True:
+            ptr = head
+            while ptr:
+                nextPtr = ptr
+                for _ in range(invite):
+                    nextPtr = nextPtr.next
+                    if not nextPtr:
+                        return head
+                first = ptr
+                temp = []
+                for _ in range(2 * invite):
+                    if nextPtr.val < ptr.val:
+                        temp.append(nextPtr.val)
+                        nextPtr = nextPtr.next
+                    else:
+                        temp.append(ptr.val)
+                        ptr = ptr.next
+                for _ in range(2 * invite):
+                    first.val = temp.pop(0) 
+                    first = first.next   
+                ptr = first
+            invite *= 2    
+
+            
+                    
+a = ListNode(4)
+b = ListNode(2)
+c = ListNode(1)
+d = ListNode(3)
+a.next = b
+b.next = c
+c.next = d
+x = Solution2()
+x.sortList(a)
+
